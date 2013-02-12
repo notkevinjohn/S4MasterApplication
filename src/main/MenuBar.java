@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -17,9 +18,12 @@ import events.IWindowEventListener;
 public class MenuBar extends JMenuBar implements ActionListener
 {
 	public static String terminal = "Terminal";
+	public static String connect = "Connect";
+	public static String disconnect = "Disconnect";
 	
 	private static final long serialVersionUID = 1L;
 	private List<Object> listeners = new ArrayList<>();
+	private JMenu connectionMenu;
 	
 	public synchronized void addEventListener(IWindowEventListener listener)
 	{
@@ -36,9 +40,10 @@ public class MenuBar extends JMenuBar implements ActionListener
 		createPreferencesMenu();
 		createEditMenu();
 		createWindowsMenu();
-		createModeMenu();				
-		
+		createModeMenu();	
+		createConnectionIndicator();		
 	}
+	
 	private void createFileMenu()
 	{
 		JMenu fileMenu = new JMenu("File");		
@@ -50,6 +55,7 @@ public class MenuBar extends JMenuBar implements ActionListener
 		
 		/*CODE STUB: add file-related items*/
 	}
+	
 	private void createPreferencesMenu()
 	{
 		JMenu preferencesMenu = new JMenu("Preferences");
@@ -58,6 +64,7 @@ public class MenuBar extends JMenuBar implements ActionListener
 		
 		/*CODE STUB: add preferences-related items*/
 	}
+	
 	private void createEditMenu()
 	{
 		JMenu editMenu = new JMenu("Edit");
@@ -66,6 +73,7 @@ public class MenuBar extends JMenuBar implements ActionListener
 		
 		/*CODE STUB: add edit-related items*/
 	}
+	
 	private void createWindowsMenu()
 	{
 		JMenu windowsMenu = new JMenu("Windows");
@@ -76,8 +84,10 @@ public class MenuBar extends JMenuBar implements ActionListener
 		terminalItem.setMnemonic(KeyEvent.VK_T);
 		terminalItem.addActionListener(this);
 		windowsMenu.add(terminalItem);	
+		
 		/*CODE STUB: add menu-related items*/
 	}
+	
 	private void createModeMenu()
 	{
 		JMenu modeMenu = new JMenu("Mode");
@@ -85,6 +95,28 @@ public class MenuBar extends JMenuBar implements ActionListener
 		this.add(modeMenu);
 		
 		/*CODE STUB: add mode-related items*/
+	}
+	
+	private void createConnectionIndicator ()
+	{
+		connectionMenu = new JMenu("Connected to:");
+		connectionMenu.setMnemonic(KeyEvent.VK_C);
+		this.add(connectionMenu);
+		
+		JMenuItem connectItem = new JMenuItem(connect);
+		connectItem.setMnemonic(KeyEvent.VK_C);
+		connectItem.addActionListener(this);
+		connectionMenu.add(connectItem);
+		
+		JMenuItem disconnectItem = new JMenuItem(disconnect);
+		disconnectItem.setMnemonic(KeyEvent.VK_D);
+		disconnectItem.addActionListener(this);
+		connectionMenu.add(disconnectItem);
+	}
+	public void ConnectionIndicatorConnected(String serverIP, int serverPort)
+	{
+		connectionMenu.setText("Connected to: "+serverIP+" : "+serverPort);
+		connectionMenu.setForeground(new Color(0x00AA00));
 	}
 	
 	@Override

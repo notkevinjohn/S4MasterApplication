@@ -19,16 +19,10 @@ public class PayloadServerSocket extends Thread
 	{
 		while(true)
 		{
+			Socket socket = null;
 			try
-	         {
-	            System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
-	            Socket server = serverSocket.accept();
-	            System.out.println("Just connected to " + server.getRemoteSocketAddress());
-	            DataInputStream in = new DataInputStream(server.getInputStream());
-	            System.out.println(in.readUTF());
-	            DataOutputStream out = new DataOutputStream(server.getOutputStream());
-	            out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress() + "\nGoodbye!");
-	            server.close();
+	         {	            
+	            socket = serverSocket.accept();	           
 	         }
 			 catch(SocketTimeoutException s)
 	         {
@@ -39,7 +33,16 @@ public class PayloadServerSocket extends Thread
 	         {
 	            e.printStackTrace();
 	            break;
-	         }
+	         }	
+			
+			try 
+			{
+				socket.getOutputStream().write(10);
+			} 
+			catch (IOException e)
+			{				
+				e.printStackTrace();
+			}
 		}
 	}
 }

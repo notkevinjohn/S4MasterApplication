@@ -1,5 +1,7 @@
 package communication;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -79,7 +81,17 @@ public class ConnectionManager extends Thread{
 	
 	public void run()
 	{
-		System.out.println("ConnectionManager Started"); 		
+		System.out.println("ConnectionManager Started"); 
+		//initialize data streams
+		try 
+		{
+			DataInputStream in = new DataInputStream(socket.getInputStream());
+			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+		} 
+		catch (IOException e1) 
+		{			
+			e1.printStackTrace();
+		}
 		while(true)
 		{
 			

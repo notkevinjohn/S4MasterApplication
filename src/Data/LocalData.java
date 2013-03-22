@@ -2,12 +2,20 @@ package Data;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import events.INewDataEventListener;
+import events.IWindowEventListener;
+import events.NewDataEvent;
+import events.WindowEvent;
 
 public class LocalData 
 {	
 	
 	private static LocalData instance;	
 	public String payloadName = "Test Payload";
+	public List<Object> listeners = new ArrayList<>();
 	
 	public static LocalData getInstance ()
 	{
@@ -31,17 +39,24 @@ public class LocalData
 	
 	public void addPayloadDataPoints (ArrayList<?> additionalPayloadDataPoints)
 	{
-		if(payloadDataPoints == null)
+		if(additionalPayloadDataPoints.size() > 0)
 		{
-			payloadDataPoints = new ArrayList<PayloadDataPoint>();
-		}	
-		for(int i=0; i<additionalPayloadDataPoints.size(); i++)
-		{
-			if(additionalPayloadDataPoints.get(i) instanceof PayloadDataPoint)
+			NewDataEvent newDataEvent = new NewDataEvent(this);
+			newDataEvent.newPayloadDataPoints = new ArrayList<PayloadDataPoint>();
+			if(payloadDataPoints == null)
 			{
-				payloadDataPoints.add((PayloadDataPoint)additionalPayloadDataPoints.get(i));
-			}
-		}				
+				payloadDataPoints = new ArrayList<PayloadDataPoint>();
+			}	
+			for(int i=0; i<additionalPayloadDataPoints.size(); i++)
+			{
+				if(additionalPayloadDataPoints.get(i) instanceof PayloadDataPoint)
+				{
+					payloadDataPoints.add((PayloadDataPoint)additionalPayloadDataPoints.get(i));
+					newDataEvent.newPayloadDataPoints.add((PayloadDataPoint)additionalPayloadDataPoints.get(i));
+				}
+			}			
+			fireEvent(newDataEvent);
+		}
 	} 
 	
 	public Timestamp mostRecentTimestamp ()
@@ -72,6 +87,22 @@ public class LocalData
 	public void clearPayloadDataPoints()
 	{
 		payloadDataPoints = new ArrayList<PayloadDataPoint>();
+	}
+	public synchronized void addEventListener(INewDataEventListener listener)
+	{
+		listeners.add(listener);
+	}
+	public synchronized void removeEventListener(INewDataEventListener listener)
+	{
+		listeners.remove(listener);
+	}
+	private synchronized void fireEvent(NewDataEvent newDataEvent)
+	{
+		Iterator<Object> i = listeners.iterator();
+		while(i.hasNext())
+		{
+			((INewDataEventListener) i.next()).handleNewDataEvent(newDataEvent);
+		}
 	}
 	
 

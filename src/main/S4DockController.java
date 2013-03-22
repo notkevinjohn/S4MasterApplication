@@ -33,7 +33,7 @@ public class S4DockController extends DockController
 	}	
 	public void addTerminalWindow()
 	{
-		grid.addDockable(0, 0, 1, 1, new TerminalWindow("Terminal"));
+		grid.addDockable(0, 0, 1, 1, new TerminalWindow());
 		station.dropTree(grid.toTree());		
 	}
 	public void addConnectionWindow()

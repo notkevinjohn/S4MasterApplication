@@ -118,6 +118,10 @@ public class MenuBar extends JMenuBar implements ActionListener
 		connectionMenu.setText("Connected to: "+serverIP+" : "+serverPort);
 		connectionMenu.setForeground(new Color(0x00AA00));
 	}
+	public void ConnectionIndicatorDisconnected()
+	{
+		connectionMenu.setForeground(new Color(0xFF0000));
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) 

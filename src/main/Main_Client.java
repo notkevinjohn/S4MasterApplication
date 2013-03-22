@@ -8,7 +8,7 @@ public class Main_Client
 	public static void main(String[] args) 
 	{
 		System.out.println("Client Starting");
-		MainFrame.getInstance();				
+		ClientFrame.getInstance();				
 	}	
 	
 }

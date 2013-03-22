@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="src/main/docking-frames-core.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/S4Terminal"/>
 	<classpathentry kind="lib" path="forms-1.3.0.jar" sourcepath="forms-1.3.0-src.zip"/>
+	<classpathentry kind="lib" path="mysql-connector-java-3.1.14-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

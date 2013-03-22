@@ -2,8 +2,8 @@ package main;
 
 
 
-import communication.ServerConnectionOptions;
 import windows.TerminalWindow;
+import Client.ServerConnectionOptions;
 import bibliothek.gui.DockController;
 import bibliothek.gui.dock.SplitDockStation;
 import bibliothek.gui.dock.station.split.SplitDockGrid;
@@ -39,7 +39,7 @@ public class S4DockController extends DockController
 	public void addConnectionWindow()
 	{		
 		ServerConnectionOptions serverOptions = new ServerConnectionOptions();		
-		serverOptions.setLocationRelativeTo(MainFrame.getInstance());
+		serverOptions.setLocationRelativeTo(ClientFrame.getInstance());
 		serverOptions.setVisible(true);		
 		
 	}

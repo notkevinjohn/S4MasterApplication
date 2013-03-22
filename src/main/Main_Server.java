@@ -1,25 +1,24 @@
 package main;
 
 import java.io.IOException;
-
-import Server.PayloadServerSocket;
+import Server.Server_ServerSocket;
 
 public class Main_Server 
 {
 	/**
 	 * @param args
-	 */
+	 */	
 	public static void main(String[] args) 
 	{
 		System.out.println("Server Starting");
 		ServerFrame.getInstance();
-		PayloadServerSocket payloadServerSocket;
+		Server_ServerSocket terminalServerSocket;
 		try 
 		{
-			payloadServerSocket = new PayloadServerSocket(2001);
-			payloadServerSocket.start();
+			terminalServerSocket = new Server_ServerSocket(2001);
+			terminalServerSocket.start();		
 		} 
-		catch (IOException e) 
+		catch (IOException e)  
 		{			
 			e.printStackTrace();
 		}

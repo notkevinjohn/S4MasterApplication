@@ -1,9 +1,12 @@
 package main;
 
+import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+
+import windows.ClientList;
 
 public class ServerFrame extends JFrame 
 {
@@ -40,7 +43,9 @@ public class ServerFrame extends JFrame
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Image img = kit.createImage(url);
 		frame.setIconImage(img);
-		frame.setTitle("S4 - Server");
+		frame.setTitle("S4 - Server");		
+		frame.setLayout(new BorderLayout());
+	    frame.add(new ClientList(), BorderLayout.CENTER);
 	}
 	
 }

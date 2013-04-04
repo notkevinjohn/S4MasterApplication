@@ -6,15 +6,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import events.INewDataEventListener;
-import events.IWindowEventListener;
 import events.NewDataEvent;
-import events.WindowEvent;
+
 
 public class LocalData 
 {	
 	
 	private static LocalData instance;	
-	public String payloadName = "Test Payload";
+	public String payloadName;
 	public List<Object> listeners = new ArrayList<>();
 	
 	public static LocalData getInstance ()

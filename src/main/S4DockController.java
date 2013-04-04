@@ -39,6 +39,7 @@ public class S4DockController extends DockController
 	public void addConnectionWindow()
 	{		
 		ServerConnectionOptions serverOptions = new ServerConnectionOptions();		
+		serverOptions.setSize(400, 600);
 		serverOptions.setLocationRelativeTo(ClientFrame.getInstance());
 		serverOptions.setVisible(true);		
 		

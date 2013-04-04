@@ -29,11 +29,10 @@ public class TerminalWindow extends DefaultDockable
         LocalData.getInstance().addEventListener(new TerminalWindowEventListener(this));		
 	}	
 	public void addNewDataPoints (ArrayList<PayloadDataPoint> newDataPoints)
-	{
-		ArrayList<PayloadDataPoint> dataPoints = newDataPoints;
-		for(int i=0; i<dataPoints.size(); i++)
+	{		
+		for(int i=0; i<newDataPoints.size(); i++)
 		{
-			PayloadDataPoint currentPoint = dataPoints.get(i);
+			PayloadDataPoint currentPoint = newDataPoints.get(i);
 			String payloadString = currentPoint.TimeStamp.toString()+", "+currentPoint.Payload
 					+", Lon: "+currentPoint.GPS_Lon+", Lat: "+currentPoint.GPS_Lat+", Alt: "+currentPoint.GPS_Alt;
 			listModel.addElement(payloadString);

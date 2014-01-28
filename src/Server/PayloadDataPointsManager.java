@@ -2,8 +2,11 @@ package Server;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Field;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
 import Data.PayloadDataPoint;
+import Data.SQLLiteDatabaseAdapter;
 
 public class PayloadDataPointsManager extends ArrayList<PayloadDataPoint>
 {	
@@ -35,7 +38,7 @@ public class PayloadDataPointsManager extends ArrayList<PayloadDataPoint>
 	}
 	public void AddPartialPayloadDataPoint(PayloadDataPoint payloadDataPoint)
 	{
-		PayloadDataPoint existingDataPoint = getPayloadDataPointByPayloadName(payloadDataPoint.Payload);
+		PayloadDataPoint existingDataPoint = getPayloadDataPointByPayloadName(payloadDataPoint.Payload);		
 		if(existingDataPoint == null)
 		{
 			this.addPartialPayloadDataPoint(payloadDataPoint);
@@ -64,7 +67,7 @@ public class PayloadDataPointsManager extends ArrayList<PayloadDataPoint>
 				PayloadDataPoint dataPoint = timer.dataPoint;
 				if(timer.manager.contains(dataPoint))
 				{
-					sendPayloadDataPointToDatabase(((PayloadDataPointTimer)e.getSource()).dataPoint);					
+					sendPayloadDataPointToDatabase(((PayloadDataPointTimer)e.getSource()).dataPoint);							
 				}				
 			}			
 		});
@@ -87,12 +90,23 @@ public class PayloadDataPointsManager extends ArrayList<PayloadDataPoint>
 				}
 			}
 				
+		} 		
+		if(dataPoint1.SensorData.size() ==0 && dataPoint2.SensorData.size() !=0)
+		{
+			dataPoint1.SensorData = dataPoint2.SensorData;
 		}
 		return dataPoint1;
 	}
 	private void sendPayloadDataPointToDatabase (PayloadDataPoint payloadDataPoint)
-	{
-		MySQLConnection.getInstance().writePayloadDataPointToDataBase(payloadDataPoint);
+	{		
+		try 
+		{			
+			SQLLiteDatabaseAdapter.getInstance().writePayloadDataPointToDataBase(payloadDataPoint);			
+		} 
+		catch (SQLException e) 
+		{			
+			e.printStackTrace();
+		}
 		this.remove(payloadDataPoint);
 	}
 }

@@ -11,11 +11,16 @@ public class PayloadDataPoint implements Serializable
 	public String Payload;
 	public Timestamp TimeStamp;
 	public double GPS_Lon = Double.NaN;
-	public double GPS_Lat = Double.NaN;; 
-	public double GPS_Alt = Double.NaN;;
+	public double GPS_Lat = Double.NaN; 
+	public double GPS_Alt = Double.NaN;
 	public String GPS_TimeSpan;
 	public String GPS_Fix;
 	public String GPS_Raw;
 	public ArrayList<KeyValuePair> SensorData;
+	
+	public PayloadDataPoint()
+	{
+		SensorData = new ArrayList<KeyValuePair>();
+	}
 
 }
